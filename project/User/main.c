@@ -69,7 +69,7 @@ int main(void)
     encoder_set_period(encoder_0,5);
     while (1)                                                                                                                                          
     {
-        UARTprintf("encoder dir=%d\n", QEIDirectionGet(QEI0_BASE));
+        UARTprintf("encoder SPD=%d\n",encoder_read_speed(encoder_0));
     }
     return 0;
 }
