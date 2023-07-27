@@ -11,8 +11,6 @@ void Timer0IntHandler(void)
 {
     MAP_TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
     gpio_toggle_level(F1);
-    //UARTprintf("%d\n", fps);
-    
     fps = 0;
 }
 

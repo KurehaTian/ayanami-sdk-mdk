@@ -66,10 +66,14 @@ int main(void)
     timer_loop_init(timer_3, 10000);
     tft180_init();
     encoder_init(encoder_0, 4096 * 4 - 1, encoder_dir_AB);
-    encoder_set_period(encoder_0,5);
-    while (1)                                                                                                                                          
+    encoder_set_period(encoder_0, 5);
+    adc_init();
+    uint32_t adc_buff[3];
+    while (1)
     {
-        UARTprintf("encoder SPD=%d\n",encoder_read_speed(encoder_0));
+        adc_read(adc_buff);
+        UARTprintf("%d,%d,%d\n", adc_buff[0], adc_buff[1], adc_buff[2]);
+        // UARTprintf("encoder SPD=%d\n",encoder_read_speed(encoder_0));
     }
     return 0;
 }

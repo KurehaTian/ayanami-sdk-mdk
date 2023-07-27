@@ -25,5 +25,6 @@ typedef enum
 
 void encoder_init(encoder_index_t encoder_n, uint32_t max_position, encoder_dir_t dir);
 void encoder_set_period(encoder_index_t encoder_n, uint32_t period_ms);
+int32_t encoder_read_speed(encoder_index_t encoder_n);
 
 #endif
