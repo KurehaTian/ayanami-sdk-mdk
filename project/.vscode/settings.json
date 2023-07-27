@@ -1,0 +1,26 @@
+{
+    "files.associations": {
+        "aya_device_head.h": "c",
+        "uartstdio.h": "c",
+        "aya_driver_spi.h": "c",
+        "aya_driver_head.h": "c",
+        "istream": "c",
+        "limits": "c",
+        "memory": "c",
+        "streambuf": "c",
+        "ssi.h": "c",
+        "aya_device_ips130.h": "c",
+        "stdarg.h": "c",
+        "isr.h": "c",
+        "aya_device_bmi088.h": "c",
+        "bsxlite_interface.h": "c",
+        "aya_device_infrared.h": "c",
+        "aya_driver_gpio.h": "c",
+        "rom_map.h": "c",
+        "hw_types.h": "c",
+        "aya_device_lcd180.h": "c",
+        "aya_common_font.h": "c",
+        "zf_device_tft180.h": "c",
+        "aya_device_encoder.h": "c"
+    }
+}
