@@ -8,7 +8,7 @@
 #ifndef AYA_DRIVER_GPIO_C_
 #define AYA_DRIVER_GPIO_C_
 #include <aya_driver_head.h>
-#include <aya_device_head.h>
+
 typedef enum // ö�ٶ˿ں�
 {
     A0 = 0x0001,

@@ -21,6 +21,7 @@
 #include "aya_driver_timer.h"
 #include "aya_driver_spi.h"
 #include "aya_driver_adc.h"
+#include "aya_driver_pwm.h"
 
 #include "aya_device_ips130.h"
 #include "aya_device_bmi088.h"

@@ -8,7 +8,6 @@
 #ifndef AYA_DRIVER_ADC_H_
 #define AYA_DRIVER_ADC_H_
 #include <aya_driver_head.h>
-#include <aya_device_head.h>
 
 typedef enum
 {

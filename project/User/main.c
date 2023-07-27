@@ -64,15 +64,13 @@ int main(void)
     timer_loop_init(timer_1, 2000000);
     timer_loop_init(timer_2, 4000000);
     timer_loop_init(timer_3, 10000);
-    tft180_init();
-    encoder_init(encoder_0, 4096 * 4 - 1, encoder_dir_AB);
-    encoder_set_period(encoder_0, 5);
-    adc_init();
-    uint32_t adc_buff[3];
+    pwm_init(pwm_motor1);
+    int prd = 3000;
     while (1)
     {
-        adc_read(adc_buff);
-        UARTprintf("%d,%d,%d\n", adc_buff[0], adc_buff[1], adc_buff[2]);
+       // prd = 1000 - prd;
+       // pwm_set_duty(pwm_motor1, prd);
+        delay();
         // UARTprintf("encoder SPD=%d\n",encoder_read_speed(encoder_0));
     }
     return 0;
