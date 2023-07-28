@@ -11,6 +11,10 @@
  *       PWM对2整除即为波形发生器序号，同一发生器发出的波形频率相同。
  */
 
+const uint32_t PWM_BASE[7] = {PWM1_BASE, PWM1_BASE, PWM1_BASE, PWM1_BASE, PWM1_BASE, PWM1_BASE, PWM1_BASE};
+const uint32_t PWM_GEN[7] = {PWM_GEN_1, PWM_GEN_2, PWM_GEN_3, PWM_GEN_3, PWM_GEN_0, PWM_GEN_0, PWM_GEN_1};
+const uint32_t PWM_OUT[7] = {PWM_OUT_3, PWM_OUT_5, PWM_OUT_6, PWM_OUT_7, PWM_OUT_0, PWM_OUT_1, PWM_OUT_2};
+
 void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty)
 {
     // 启用PWM模块时钟
@@ -18,9 +22,9 @@ void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty)
     SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM1);
 
     // 设置PWM时钟频率为系统时钟的1/64
-    SysCtlPWMClockSet(SYSCTL_PWMDIV_4);
+    SysCtlPWMClockSet(SYSCTL_PWMDIV_16);
 
-    uint32_t pwmPeriod = SysCtlClockGet() / 4 / freq;
+    uint32_t pwmPeriod = SysCtlClockGet() / 16 / freq;
     uint32_t dutyCycle = duty * pwmPeriod / 10000;
 
     switch (ch)
@@ -100,28 +104,23 @@ void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty)
 
 void pwm_set_freq(pwm_ch_t ch, uint32_t freq_hz)
 {
-    switch (ch)
-    {
-    case pwm_motor1:
-        uint32_t oldPeriod = PWMGenPeriodGet(PWM1_BASE, PWM_GEN_1);
-        uint32_t oldDutyCycle = PWMPulseWidthGet(PWM1_BASE, PWM_OUT_3);
-        uint32_t newFrequency = freq_hz;
-        uint32_t newPeriod = SysCtlClockGet() / 4 / newFrequency;
-        uint32_t newDutyCycle = oldDutyCycle * newPeriod / oldDutyCycle;
-        PWMGenPeriodSet(PWM1_BASE, PWM_GEN_1, newPeriod);
-        PWMPulseWidthSet(PWM1_BASE, PWM_OUT_3, newDutyCycle);
-        break;
-    }
+    // 获取源数据
+    uint32_t oldPeriod = PWMGenPeriodGet(PWM_BASE[ch], PWM_GEN[ch]);
+    uint32_t oldDutyCycle = PWMPulseWidthGet(PWM_BASE[ch], PWM_OUT[ch]);
+
+    // 计算新的值
+    uint32_t newFrequency = freq_hz;
+    uint32_t newPeriod = SysCtlClockGet() / 16 / newFrequency;
+    uint32_t newDutyCycle = oldDutyCycle * newPeriod / oldDutyCycle;
+
+    // 设置新的值
+    PWMGenPeriodSet(PWM_BASE[ch], PWM_GEN[ch], newPeriod);
+    PWMPulseWidthSet(PWM_BASE[ch], PWM_OUT[ch], newDutyCycle);
 }
 
 void pwm_set_duty(pwm_ch_t ch, uint32_t duty_div_10k)
 {
-    switch (ch)
-    {
-    case pwm_motor1:
-        uint32_t oldPeriod = PWMGenPeriodGet(PWM1_BASE, PWM_GEN_1);
-        uint32_t newDutyCycle = oldPeriod * duty_div_10k / 10000;
-        PWMPulseWidthSet(PWM1_BASE, PWM_OUT_3, newDutyCycle);
-        break;
-    }
+    uint32_t oldPeriod = PWMGenPeriodGet(PWM_BASE[ch], PWM_GEN[ch]);
+    uint32_t newDutyCycle = oldPeriod * duty_div_10k / 10000;
+    PWMPulseWidthSet(PWM_BASE[ch], PWM_OUT[ch], newDutyCycle);
 }

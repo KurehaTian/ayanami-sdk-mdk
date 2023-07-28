@@ -24,6 +24,7 @@
         "aya_device_encoder.h": "c",
         "aya_driver_adc.h": "c",
         "aya_driver_pwm.h": "c",
-        "aya_device_ccd.h": "c"
+        "aya_device_ccd.h": "c",
+        "aya_driver_systick.h": "c"
     }
 }

@@ -60,23 +60,41 @@ int main(void)
     gpio_init(F3, GPO, GPIO_HIGH, GPO_PP);
     // bmi088_init();
     // infrared_init();
-    //timer_loop_init(timer_0, 1000000);
-    //timer_loop_init(timer_1, 2000000);
-    //timer_loop_init(timer_2, 4000000);
-    //timer_loop_init(timer_3, 10000);
-    pwm_init(pwm_motor1,100,1000);
-    pwm_init(pwm_motor2,200,2000);
-    pwm_init(pwm_motor3,300,3000);
-    pwm_init(pwm_motor4,400,4000);
-    pwm_init(pwm_servo1,500,5000);
-    pwm_init(pwm_servo2,600,6000);
-    pwm_init(pwm_servo3,700,7000);
-    int prd = 3000;
+    // timer_loop_init(timer_0, 1000000);
+    // timer_loop_init(timer_1, 2000000);
+    // timer_loop_init(timer_2, 4000000);
+    // timer_loop_init(timer_3, 10000);
+    pwm_init(pwm_motor1, 333, 1000);
+    pwm_init(pwm_motor2, 333, 1000);
+    pwm_init(pwm_motor3, 333, 1000);
+    pwm_init(pwm_motor4, 333, 1000);
+    pwm_init(pwm_servo1, 333, 1000);
+    pwm_init(pwm_servo2, 333, 1000);
+    pwm_init(pwm_servo3, 333, 1000);
+    int prd = 1666;
+    int step = 333;
     while (1)
     {
-       // prd = 1000 - prd;
-       // pwm_set_duty(pwm_motor1, prd);
+        // prd = 1000 - prd;
+        // pwm_set_duty(pwm_motor1, prd);
         delay();
+        pwm_set_duty(pwm_servo1, 2000);
+        delay();
+        pwm_set_duty(pwm_servo1, 8000);
+        // pwm_set_duty(pwm_motor1, prd);
+        // pwm_set_duty(pwm_motor2, prd);
+        // pwm_set_duty(pwm_motor3, prd);
+        // pwm_set_duty(pwm_motor4, prd);
+        // pwm_set_duty(pwm_servo1, prd);
+        // pwm_set_duty(pwm_servo2, prd);
+        // pwm_set_duty(pwm_servo3, prd);
+
+        // prd += step;
+        // if (prd < 1666)
+        //     prd = 1666, step = 333;
+        // if (prd > 8333)
+        //     prd = 8333, step = -333;
+
         // UARTprintf("encoder SPD=%d\n",encoder_read_speed(encoder_0));
     }
     return 0;
