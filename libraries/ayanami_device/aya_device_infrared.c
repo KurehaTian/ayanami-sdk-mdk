@@ -5,14 +5,7 @@ uint8_t raw_buff[20];
 
 static void delay_us(int us)
 {
-    volatile uint32_t dummy = 0;
-    while (us)
-    {
-        us--;
-        dummy = 80;
-        while (dummy--)
-            ;
-    }
+    systick_delay_us(us);
 }
 
 /**
@@ -47,9 +40,9 @@ void infrared_read()
         delay_us(10);
         gpio_set_level(INFRARED_PIN_CLK, GPIO_HIGH);
         delay_us(10);
-        UARTprintf("%d ", raw_buff[i]);
+        //UARTprintf("%d ", raw_buff[i]);
     }
-    UARTprintf("\n");
+    //UARTprintf("\n");
 }
 
 /**

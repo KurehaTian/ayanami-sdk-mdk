@@ -20,26 +20,12 @@ float delta_angle(float current, float target)
 
 static void delay_ms(int ms)
 {
-    volatile uint32_t dummy = 0;
-    while (ms)
-    {
-        ms--;
-        dummy = 10000;
-        while (dummy--)
-            ;
-    }
+     systick_delay_ms(ms);
 }
 
 static void delay_us(int us)
 {
-    volatile uint32_t dummy = 0;
-    while (us)
-    {
-        us--;
-        dummy = 10;
-        while (dummy--)
-            ;
-    }
+   systick_delay_us(us);
 }
 
 static uint8_t bmi088_acc_read_reg(uint8_t reg)

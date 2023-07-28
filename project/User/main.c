@@ -6,6 +6,7 @@
 #include "string.h"
 #include "stdlib.h"
 #include "stdio.h"
+#include "math.h"
 #include "isr.h"
 void delay()
 {
@@ -64,38 +65,41 @@ int main(void)
     // timer_loop_init(timer_1, 2000000);
     // timer_loop_init(timer_2, 4000000);
     // timer_loop_init(timer_3, 10000);
-    pwm_init(pwm_motor1, 333, 1000);
-    pwm_init(pwm_motor2, 333, 1000);
-    pwm_init(pwm_motor3, 333, 1000);
-    pwm_init(pwm_motor4, 333, 1000);
-    pwm_init(pwm_servo1, 333, 1000);
-    pwm_init(pwm_servo2, 333, 1000);
-    pwm_init(pwm_servo3, 333, 1000);
-    int prd = 1666;
-    int step = 333;
+    pwm_init(pwm_motor2, 1000, 1000);
+    pwm_init(pwm_motor3, 1000, 1000);
+    pwm_init(pwm_motor4, 1000, 1000);
+    int t = 0;
+    uint32_t s1, s2, s3;
+    float f1, f2, f3;
+
     while (1)
     {
         // prd = 1000 - prd;
         // pwm_set_duty(pwm_motor1, prd);
-        delay();
-        pwm_set_duty(pwm_servo1, 2000);
-        delay();
-        pwm_set_duty(pwm_servo1, 8000);
-        // pwm_set_duty(pwm_motor1, prd);
-        // pwm_set_duty(pwm_motor2, prd);
-        // pwm_set_duty(pwm_motor3, prd);
-        // pwm_set_duty(pwm_motor4, prd);
-        // pwm_set_duty(pwm_servo1, prd);
-        // pwm_set_duty(pwm_servo2, prd);
-        // pwm_set_duty(pwm_servo3, prd);
+        t += 1;
+        if (t >= 3000)
+            t = 0;
+        systick_delay_ms(1);
+        f1 = sin(t / 3000.0 *2* 3.1415926);
+        f1 = (f1 + 1) / 2;
+        f2 = sin(t / 1500.0 *2* 3.1415926);
+        f2 = (f2 + 1) / 2;
+        f3 = sin(t / 750.0 *2* 3.1415926);
+        f3 = (f3 + 1) / 2;
 
-        // prd += step;
-        // if (prd < 1666)
-        //     prd = 1666, step = 333;
-        // if (prd > 8333)
-        //     prd = 8333, step = -333;
+        s1 = pow(1.35, f1 * 30);
+        s2 = pow(1.35, f2 * 30);
+        s3 = pow(1.35, f3 * 30);
+        pwm_set_duty(pwm_motor2, s1);
+        pwm_set_duty(pwm_motor3, s2);
+        pwm_set_duty(pwm_motor4, s3);
+        // gpio_toggle_level(F1);
+        //  pwm_set_duty(pwm_motor4, prd);
+        //  pwm_set_duty(pwm_servo1, prd);
+        //  pwm_set_duty(pwm_servo2, prd);
+        //  pwm_set_duty(pwm_servo3, prd);
 
-        // UARTprintf("encoder SPD=%d\n",encoder_read_speed(encoder_0));
+        // UARTprintf("t=%d %d %d %d\n", t,s1,s2,s3);
     }
     return 0;
 }

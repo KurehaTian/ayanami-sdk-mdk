@@ -46,3 +46,4 @@ void Timer5IntHandler(void)
 {
     MAP_TimerIntClear(TIMER5_BASE, TIMER_TIMA_TIMEOUT);
 }
+
