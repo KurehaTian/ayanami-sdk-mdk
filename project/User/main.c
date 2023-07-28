@@ -60,11 +60,17 @@ int main(void)
     gpio_init(F3, GPO, GPIO_HIGH, GPO_PP);
     // bmi088_init();
     // infrared_init();
-    timer_loop_init(timer_0, 1000000);
-    timer_loop_init(timer_1, 2000000);
-    timer_loop_init(timer_2, 4000000);
-    timer_loop_init(timer_3, 10000);
-    pwm_init(pwm_motor1);
+    //timer_loop_init(timer_0, 1000000);
+    //timer_loop_init(timer_1, 2000000);
+    //timer_loop_init(timer_2, 4000000);
+    //timer_loop_init(timer_3, 10000);
+    pwm_init(pwm_motor1,100,1000);
+    pwm_init(pwm_motor2,200,2000);
+    pwm_init(pwm_motor3,300,3000);
+    pwm_init(pwm_motor4,400,4000);
+    pwm_init(pwm_servo1,500,5000);
+    pwm_init(pwm_servo2,600,6000);
+    pwm_init(pwm_servo3,700,7000);
     int prd = 3000;
     while (1)
     {

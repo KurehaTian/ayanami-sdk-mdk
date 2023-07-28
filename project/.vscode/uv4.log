@@ -1,16 +1,47 @@
-*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'ayanami-SDK'
-compiling aya_driver_pwm.c...
-..\libraries\ayanami_driver\aya_driver_pwm.h(20): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\libraries\ayanami_driver\aya_driver_pwm.c(54): warning:  #1182-D: a declaration cannot have a label
-          uint32_t oldPeriod = PWMGenPeriodGet(PWM1_BASE, PWM_GEN_1);
-..\libraries\ayanami_driver\aya_driver_pwm.c(70): warning:  #1182-D: a declaration cannot have a label
-          uint32_t oldPeriod = PWMGenPeriodGet(PWM1_BASE, PWM_GEN_1);
-..\libraries\ayanami_driver\aya_driver_pwm.c(75): warning:  #1-D: last line of file ends without a newline
-  }
-..\libraries\ayanami_driver\aya_driver_pwm.c: 4 warnings, 0 errors
-linking...
-Program Size: Code=3820 RO-data=1680 RW-data=1644 ZI-data=2052  
-".\rvmdk\ayanami-sdk.axf" - 0 Error(s), 4 Warning(s).
-Build Time Elapsed:  00:00:03
+Load "c:\\nuedc\\ayanami-sdk-mdk\\project\\rvmdk\\ayanami-sdk.axf" 
+Set JLink Project File to "c:\nuedc\ayanami-sdk-mdk\project\JLinkSettings.ini"* JLink Info: Device "TM4C123GH6PM" selected.
+
+JLink info:
+------------
+DLL: V6.46 , compiled May 23 2019 17:49:56
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090929 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+
+* JLink Info: Found SW-DP with ID 0x2BA01477
+* JLink Info: Scanning AP map to find all available APs
+* JLink Info: AP[1]: Stopped AP scan as end of AP map has been reached
+* JLink Info: AP[0]: AHB-AP (IDR: 0x24770011)
+* JLink Info: Iterating through AP map to find AHB-AP to use
+* JLink Info: AP[0]: Core found
+* JLink Info: AP[0]: AHB-AP ROM base: 0xE00FF000
+* JLink Info: CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: CoreSight components:
+* JLink Info: ROMTbl[0] @ E00FF000
+* JLink Info: ROMTbl[0][0]: E000E000, CID: B105E00D, PID: 000BB00C SCS-M7
+* JLink Info: ROMTbl[0][1]: E0001000, CID: B105E00D, PID: 003BB002 DWT
+* JLink Info: ROMTbl[0][2]: E0002000, CID: B105E00D, PID: 002BB003 FPB
+* JLink Info: ROMTbl[0][3]: E0000000, CID: B105E00D, PID: 003BB001 ITM
+* JLink Info: ROMTbl[0][4]: E0040000, CID: B105900D, PID: 000BB9A1 TPIU
+* JLink Info: ROMTbl[0][5]: E0041000, CID: B105900D, PID: 000BB925 ETM
+ROMTableAddr = 0xE00FF000
+* JLink Info: Reset: Halt core after reset via DEMCR.VC_CORERESET.
+* JLink Info: Reset: Reset device via AIRCR.SYSRESETREQ.
+
+Target info:
+------------
+Device: TM4C123GH6PM
+VTarget = 3.300V
+State of Pins: TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 4000 kHz
+
+Full Chip Erase Done.Programming Done.Verify OK.* JLink Info: Reset: Halt core after reset via DEMCR.VC_CORERESET.
+* JLink Info: Reset: Reset device via AIRCR.SYSRESETREQ.
+Application running ...
+Flash Load finished at 13:50:33

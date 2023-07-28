@@ -13,7 +13,7 @@ typedef enum
     pwm_servo3
 } pwm_ch_t;
 
-void pwm_init(pwm_ch_t ch);
+void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty);
 void pwm_set_freq(pwm_ch_t ch, uint32_t freq_hz);
 void pwm_set_duty(pwm_ch_t ch, uint32_t duty_div_10k);
 
