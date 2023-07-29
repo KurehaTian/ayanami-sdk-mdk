@@ -24,7 +24,7 @@ void systick_delay_us(uint32_t us)
     SysTickPeriodSet(SysCtlClockGet() / 1000);
     SysTickIntRegister(SystickIntHandler);
     SysTickIntEnable();
-    SysTickEnable();
+    SysTickEnable(); 
     while (systick_it_count < us);
 
     SysTickIntDisable();

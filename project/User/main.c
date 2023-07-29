@@ -56,50 +56,65 @@ int main(void)
 
     ConfigureUART();
 
-    gpio_init(F1, GPO, GPIO_HIGH, GPO_PP);
-    gpio_init(F2, GPO, GPIO_HIGH, GPO_PP);
-    gpio_init(F3, GPO, GPIO_HIGH, GPO_PP);
+    // gpio_init(F1, GPO, GPIO_HIGH, GPO_PP);
+    // gpio_init(F2, GPO, GPIO_HIGH, GPO_PP);
+    // gpio_init(F3, GPO, GPIO_HIGH, GPO_PP);
     // bmi088_init();
     // infrared_init();
     // timer_loop_init(timer_0, 1000000);
     // timer_loop_init(timer_1, 2000000);
     // timer_loop_init(timer_2, 4000000);
     // timer_loop_init(timer_3, 10000);
-    pwm_init(pwm_motor2, 1000, 1000);
-    pwm_init(pwm_motor3, 1000, 1000);
-    pwm_init(pwm_motor4, 1000, 1000);
+
+    drv8701_init();
+    drv8701_enable();
     int t = 0;
     uint32_t s1, s2, s3;
     float f1, f2, f3;
 
+    i2c_init(I2C_1);
+
+    i2c_read_reg(I2C_1, 0x74, 0x00);
+    uint8_t buf[3];
+    //gpio_init(E5,GPO,GPIO_HIGH,GPO_PP);
     while (1)
     {
         // prd = 1000 - prd;
-        // pwm_set_duty(pwm_motor1, prd);
-        t += 1;
-        if (t >= 3000)
-            t = 0;
-        systick_delay_ms(1);
-        f1 = sin(t / 3000.0 *2* 3.1415926);
-        f1 = (f1 + 1) / 2;
-        f2 = sin(t / 1500.0 *2* 3.1415926);
-        f2 = (f2 + 1) / 2;
-        f3 = sin(t / 750.0 *2* 3.1415926);
-        f3 = (f3 + 1) / 2;
+    // pwm_set_duty(pwm_motor1, prd);
+        // buf[0] = i2c_read_reg(I2C_1, 0x74, 0x00);
 
-        s1 = pow(1.35, f1 * 30);
-        s2 = pow(1.35, f2 * 30);
-        s3 = pow(1.35, f3 * 30);
-        pwm_set_duty(pwm_motor2, s1);
-        pwm_set_duty(pwm_motor3, s2);
-        pwm_set_duty(pwm_motor4, s3);
+        // t += 1;
+        // if (t >= 1000)
+        //     t = 0;
+        //gpio_set_level(E5,GPIO_LOW);
+        systick_delay_ms(2000);
+
+        drv8701_setSpeedLeft(-1000);
+        drv8701_apply();
+        //gpio_set_level(E5,GPIO_HIGH);
+        systick_delay_ms(2000);
+
+        drv8701_setSpeedLeft(1000);
+        drv8701_apply();
+
+        // f1 = sin((t + 0) / 1000.0 * 2 * 3.1415926);
+        // f1 = (f1 + 1) / 2;
+        // f2 = sin((t + 333) / 1000.0 * 2 * 3.1415926);
+        // f2 = (f2 + 1) / 2;
+        // f3 = sin((t + 667) / 1000.0 * 2 * 3.1415926);
+        // f3 = (f3 + 1) / 2;
+
+        // s1 = pow(1.1, f1 * 30) / pow(1.1, 30) * 10000.0;
+        // s2 = pow(1.3, f2 * 30) / pow(1.3, 30) * 10000.0;
+        // s3 = pow(1.3, f3 * 30) / pow(1.3, 30) * 10000.0;
+
         // gpio_toggle_level(F1);
         //  pwm_set_duty(pwm_motor4, prd);
         //  pwm_set_duty(pwm_servo1, prd);
         //  pwm_set_duty(pwm_servo2, prd);
         //  pwm_set_duty(pwm_servo3, prd);
-
-        // UARTprintf("t=%d %d %d %d\n", t,s1,s2,s3);
+        // UARTprintf("P0=%x\n",buf[0]);
+        //  UARTprintf("%d\n",s1);
     }
     return 0;
 }
