@@ -86,18 +86,44 @@ void uart_write_byte(uart_index_t uart_n, uint8_t dat)
 
 void uart_write_buffer(uart_index_t uart_n, uint8_t *buff, uint32_t len)
 {
+    for (int i = 0; i < len; i++)
+    {
+        uart_write_byte(uart_n, buff[i]);
+    }
 }
 
 void uart_write_string(uart_index_t uart_n, const char *str)
 {
+    while (*str) // 一直循环到结尾
+    {
+        uart_write_byte(uart_n, *str++); // 发送数据
+    }
 }
 
 uint8_t uart_read_byte(uart_index_t uart_n)
 {
+    uint8_t dat;
+    dat = UARTCharGet(uart_n);
+    return dat;
 }
 
 uint8_t uart_quary_byte(uart_index_t uart_n, uint8_t *dat)
 {
+    int32_t recvData32;
+    uint8_t recvData8;
+    int len = 0;
+    do
+    {
+        recvData32 = UARTCharGetNonBlocking(UART_BASE[uart_n]);
+        if (recvData32 != -1)
+        {
+            recvData8 = (uint8_t)recvData32;
+            dat[len] = recvData8;
+            len++;
+        }
+    } while (recvData32 != -1);
+
+    return len;
 }
 
 // 系统自带的= =
