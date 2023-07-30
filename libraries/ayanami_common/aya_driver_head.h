@@ -37,5 +37,12 @@
 #include "driverlib/qei.h"
 
 
+#include "string.h"
+#include "stdlib.h"
+#include "stdio.h"
+#include "math.h"
+#include "isr.h"
+
+
 
 #endif

@@ -21,6 +21,10 @@ void Timer2IntHandler(void);
 void Timer3IntHandler(void);
 void Timer4IntHandler(void);
 void Timer5IntHandler(void);
+
+void Uart0IntHandler(void);
+void Uart1IntHandler(void);
+void Uart6IntHandler(void);
 extern int fps;
 
 #endif /* USER_ISR_H_ */
