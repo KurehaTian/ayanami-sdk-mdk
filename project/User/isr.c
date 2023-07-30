@@ -29,12 +29,10 @@ void Timer2IntHandler(void)
 void Timer3IntHandler(void)
 {
     MAP_TimerIntClear(TIMER3_BASE, TIMER_TIMA_TIMEOUT);
-    // bmi088_read_data();
-    // bmi088_bsx_calc();
-
-    //		char s[100];
-    //		sprintf(s, "ROLL=%.2f\tYAW=%.2f\tPIT=%.2f\n\n",bsx_out_data.orientation.roll * 180.0 / 3.1415926535, bsx_out_data.orientation.yaw * 180.0 / 3.1415926535,bsx_out_data.orientation.pitch * 180.0 / 3.1415926535);
-    //		UARTprintf("%s",s);
+    key_handler();
+    //UARTprintf("KEY:\tUP\tLF\tRT\tDN\tCT\tS1\tS2\n");
+    //UARTprintf("Prs:\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n", key_read(0), key_read(1), key_read(2), key_read(3), key_read(4), key_read(5), key_read(6));
+    //UARTprintf("Tim:\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n\n", key_cnt[0], key_cnt[1], key_cnt[2], key_cnt[3], key_cnt[4], key_cnt[5], key_cnt[6]);
 }
 
 void Timer4IntHandler(void)
@@ -46,4 +44,3 @@ void Timer5IntHandler(void)
 {
     MAP_TimerIntClear(TIMER5_BASE, TIMER_TIMA_TIMEOUT);
 }
-

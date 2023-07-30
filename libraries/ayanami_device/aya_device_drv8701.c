@@ -49,7 +49,6 @@ void drv8701_apply(void)
 
     pwm_set_duty(DRV8701_LEFT_PWM, spd_l);
     pwm_set_duty(DRV8701_RIGHT_PWM, spd_r);
-    UARTprintf("sigl=%d\n",sig_l);
 }
 
 void drv8701_setSpeedLeft(int32_t speedL)

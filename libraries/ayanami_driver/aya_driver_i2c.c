@@ -213,7 +213,32 @@ uint8_t i2c_read_reg(i2c_index_t i2c_n, uint8_t slav_addr, uint8_t reg)
     return data;
 }
 
-void i2c_write_reg()
+void i2c_write_reg(i2c_index_t i2c_n, uint8_t slav_addr, uint8_t reg, uint8_t data)
 {
-    
+    uint32_t pher_base = 0;
+    switch (i2c_n)
+    {
+    case I2C_0:
+        pher_base = I2C0_BASE;
+        break;
+    case I2C_1:
+        pher_base = I2C1_BASE;
+        break;
+    case I2C_2:
+        pher_base = I2C2_BASE;
+        break;
+    case I2C_3:
+        pher_base = I2C3_BASE;
+        break;
+    }
+    I2CMasterSlaveAddrSet(pher_base, slav_addr, false);
+    I2CMasterDataPut(pher_base, reg);
+    I2CMasterControl(pher_base, I2C_MASTER_CMD_BURST_SEND_START);
+
+    while (I2CMasterBusy(pher_base))
+        ;
+    I2CMasterDataPut(pher_base, data);
+    I2CMasterControl(pher_base, I2C_MASTER_CMD_BURST_SEND_FINISH);
+    while (I2CMasterBusy(pher_base))
+        ;
 }

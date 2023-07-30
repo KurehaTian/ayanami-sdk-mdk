@@ -30,5 +30,6 @@
 #include "aya_device_lcd180.h"
 #include "aya_device_encoder.h"
 #include "aya_device_drv8701.h"
+#include "aya_device_key.h"
 #include "aya_common_font.h"
 #endif

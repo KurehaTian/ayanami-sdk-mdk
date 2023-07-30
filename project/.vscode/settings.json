@@ -28,6 +28,7 @@
         "aya_driver_systick.h": "c",
         "aya_device_key.h": "c",
         "aya_driver_i2c.h": "c",
-        "aya_device_drv8701.h": "c"
+        "aya_device_drv8701.h": "c",
+        "aya_common_pid.h": "c"
     }
 }
