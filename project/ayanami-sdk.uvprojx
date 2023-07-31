@@ -617,6 +617,11 @@
               <FileType>1</FileType>
               <FilePath>..\libraries\ayanami_common\aya_common_font.c</FilePath>
             </File>
+            <File>
+              <FileName>aya_common_UI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\libraries\ayanami_common\aya_common_UI.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

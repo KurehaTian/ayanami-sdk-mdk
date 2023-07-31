@@ -9,8 +9,6 @@ static tft180_font_size_enum tft180_display_font = TFT180_DEFAULT_DISPLAY_FONT;
 static uint8_t tft180_x_max = 160;
 static uint8_t tft180_y_max = 128;
 
-
-
 static void delay_ms(int ms)
 {
     systick_delay_ms(ms);
@@ -18,10 +16,157 @@ static void delay_ms(int ms)
 
 static void delay_us(int us)
 {
-     systick_delay_us(us);
+    systick_delay_us(us);
 }
 
+static void func_int_to_str(char *str, int32_t number)
+{
+
+    uint8_t data_temp[16]; // 缓冲区
+    uint8_t bit = 0;       // 数字位数
+    int32_t number_temp = 0;
+
+    do
+    {
+        if (NULL == str)
+        {
+            break;
+        }
+
+        if (0 > number) // 负数
+        {
+            *str++ = '-';
+            number = -number;
+        }
+        else if (0 == number) // 或者这是个 0
+        {
+            *str = '0';
+            break;
+        }
+
+        while (0 != number) // 循环直到数值归零
+        {
+            number_temp = number % 10;
+            data_temp[bit++] = abs(number_temp); // 倒序将数值提取出来
+            number /= 10;                        // 削减被提取的个位数
+        }
+        while (0 != bit) // 提取的数字个数递减处理
+        {
+            *str++ = (data_temp[bit - 1] + 0x30); // 将数字从倒序数组中倒序取出 变成正序放入字符串
+            bit--;
+        }
+    } while (0);
+}
+
+void func_uint_to_str(char *str, uint32_t number)
+{
+    int8_t data_temp[16]; // 缓冲区
+    uint8_t bit = 0;      // 数字位数
+
+    do
+    {
+        if (NULL == str)
+        {
+            break;
+        }
+
+        if (0 == number) // 这是个 0
+        {
+            *str = '0';
+            break;
+        }
+
+        while (0 != number) // 循环直到数值归零
+        {
+            data_temp[bit++] = (number % 10); // 倒序将数值提取出来
+            number /= 10;                     // 削减被提取的个位数
+        }
+        while (0 != bit) // 提取的数字个数递减处理
+        {
+            *str++ = (data_temp[bit - 1] + 0x30); // 将数字从倒序数组中倒序取出 变成正序放入字符串
+            bit--;
+        }
+    } while (0);
+}
+
+void func_float_to_str(char *str, float number, uint8_t point_bit)
+{
+    int data_int = 0;        // 整数部分
+    int data_float = 0.0;    // 小数部分
+    int data_temp[8];        // 整数字符缓冲
+    int data_temp_point[6];  // 小数字符缓冲
+    uint8_t bit = point_bit; // 转换精度位数
+
+    do
+    {
+        if (NULL == str)
+        {
+            break;
+        }
+
+        // 提取整数部分
+        data_int = (int)number; // 直接强制转换为 int
+        if (0 > number)         // 判断源数据是正数还是负数
+        {
+            *str++ = '-';
+        }
+        else if (0.0 == number) // 如果是个 0
+        {
+            *str++ = '0';
+            *str++ = '.';
+            *str = '0';
+            break;
+        }
+
+        // 提取小数部分
+        number = number - data_int; // 减去整数部分即可
+        while (bit--)
+        {
+            number = number * 10; // 将需要的小数位数提取到整数部分
+        }
+        data_float = (int)number; // 获取这部分数值
+
+        // 整数部分转为字符串
+        bit = 0;
+        do
+        {
+            data_temp[bit++] = data_int % 10; // 将整数部分倒序写入字符缓冲区
+            data_int /= 10;
+        } while (0 != data_int);
+        while (0 != bit)
+        {
+            *str++ = (abs(data_temp[bit - 1]) + 0x30); // 再倒序将倒序的数值写入字符串 得到正序数值
+            bit--;
+        }
+
+        // 小数部分转为字符串
+        if (point_bit != 0)
+        {
+            bit = 0;
+            *str++ = '.';
+            if (0 == data_float)
+            {
+                *str = '0';
+            }
+            else
+            {
+                while (0 != point_bit) // 判断有效位数
+                {
+                    data_temp_point[bit++] = data_float % 10; // 倒序写入字符缓冲区
+                    data_float /= 10;
+                    point_bit--;
+                }
+                while (0 != bit)
+                {
+                    *str++ = (abs(data_temp_point[bit - 1]) + 0x30); // 再倒序将倒序的数值写入字符串 得到正序数值
+                    bit--;
+                }
+            }
+        }
+    } while (0);
+}
 /**
+ *
  * @brief TFT180 SPI 写 8bit 数据
  * @param dat   数据
  */
@@ -60,22 +205,22 @@ static void TFT180_Address_Set(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y
     if (tft180_display_dir == TFT180_PORTAIT || tft180_display_dir == TFT180_PORTAIT_180)
     {
         TFT180_WR_CMD_8(0x2a);
-        TFT180_WR_BUS_16(x1+2);
-        TFT180_WR_BUS_16(x2+2);
+        TFT180_WR_BUS_16(x1 + 2);
+        TFT180_WR_BUS_16(x2 + 2);
 
         TFT180_WR_CMD_8(0x2b);
-        TFT180_WR_BUS_16(y1+1);
-        TFT180_WR_BUS_16(y2+1);
+        TFT180_WR_BUS_16(y1 + 1);
+        TFT180_WR_BUS_16(y2 + 1);
     }
     else
     {
         TFT180_WR_CMD_8(0x2a);
-        TFT180_WR_BUS_16(x1+1);
-        TFT180_WR_BUS_16(x2+1);
+        TFT180_WR_BUS_16(x1 + 1);
+        TFT180_WR_BUS_16(x2 + 1);
 
         TFT180_WR_CMD_8(0x2b);
-        TFT180_WR_BUS_16(y1+2);
-        TFT180_WR_BUS_16(y2+2);
+        TFT180_WR_BUS_16(y1 + 2);
+        TFT180_WR_BUS_16(y2 + 2);
     }
     TFT180_WR_CMD_8(0x2c);
 }
@@ -339,8 +484,8 @@ void tft180_show_int(uint16_t x, uint16_t y, const int32_t dat, uint8_t num)
             offset *= 10;
         dat_temp %= offset;
     }
-    // func_int_to_str(data_buffer, dat_temp);
-    sprintf(data_buffer, "%d", dat_temp);
+    func_int_to_str(data_buffer, dat_temp);
+    // sprintf(data_buffer, "%d", dat_temp);
     tft180_show_string(x, y, (const char *)&data_buffer);
 }
 
@@ -358,8 +503,8 @@ void tft180_show_float(uint16_t x, uint16_t y, const float dat, uint8_t num, uin
             offset *= 10;
         dat_temp = dat_temp - ((int)dat_temp / (int)offset) * offset;
     }
-    //func_float_to_str(data_buffer, dat_temp, pointnum);
-    sprintf(data_buffer, "%.2f", dat_temp);
+    func_float_to_str(data_buffer, dat_temp, pointnum);
+    // sprintf(data_buffer, "%.2f", dat_temp);
     tft180_show_string(x, y, data_buffer);
 }
 
@@ -470,8 +615,28 @@ void tft180_show_uint_color(uint16_t x, uint16_t y, const uint32_t dat, uint8_t 
             offset *= 10;
         dat_temp %= offset;
     }
-    // func_uint_to_str(data_buffer, dat_temp);
-    sprintf(data_buffer, "%d", dat_temp);
+    func_uint_to_str(data_buffer, dat_temp);
+    // sprintf(data_buffer, "%d", dat_temp);
+    tft180_show_string_color(x, y, (const char *)&data_buffer, colorf, colorb);
+}
+
+void tft180_show_int_color(uint16_t x, uint16_t y, const int32_t dat, uint8_t num, uint16_t colorf, uint16_t colorb)
+{
+    int32_t dat_temp = dat;
+    int32_t offset = 1;
+    char data_buffer[12];
+
+    memset(data_buffer, 0, 12);
+    memset(data_buffer, ' ', num + 1);
+
+    if (num < 10)
+    {
+        for (; num > 0; num--)
+            offset *= 10;
+        dat_temp %= offset;
+    }
+    func_int_to_str(data_buffer, dat_temp);
+    // sprintf(data_buffer, "%d", dat_temp);
     tft180_show_string_color(x, y, (const char *)&data_buffer, colorf, colorb);
 }
 
@@ -489,8 +654,8 @@ void tft180_show_float_color(uint16_t x, uint16_t y, const float dat, uint8_t nu
             offset *= 10;
         dat_temp = dat_temp - ((int)dat_temp / (int)offset) * offset;
     }
-    // func_float_to_str(data_buffer, dat_temp, pointnum);
-    sprintf(data_buffer, "%.2f", dat_temp);
+    func_float_to_str(data_buffer, dat_temp, pointnum);
+    // sprintf(data_buffer, "%.2f", dat_temp);
     tft180_show_string_color(x, y, data_buffer, colorf, colorb);
 }
 

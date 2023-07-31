@@ -35,5 +35,6 @@
 
 #include "aya_common_font.h"
 #include "aya_common_pid.h"
+#include "aya_common_UI.h"
 
 #endif

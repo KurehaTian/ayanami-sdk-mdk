@@ -7,7 +7,7 @@ uint8_t raw_key_read[7];
 uint8_t key_event[7];
 uint32_t key_cnt[7];
 
-#define KEY_LONG_PRESS 20
+#define KEY_LONG_PRESS 100
 
 void tca9539_init()
 {
@@ -43,20 +43,21 @@ void key_handler()
         if (raw_key_read[i] == 0)
         {
             // 按键抬起时
-            key_event[i] = 0;
+            // key_event[i] = 0;
             key_cnt[i] = 0;
         }
         else
         {
 // 按键按下时
 #ifdef KEY_LONG_PRESS
+            UARTprintf("Key %d pressed,Eve= %d,Cnt=%d\n", i, key_event[i], key_cnt[i]);
             if (key_cnt[i] == 1 || key_cnt[i] > KEY_LONG_PRESS)
 #else
             if (key_cnt[i] == 1)
 #endif
                 key_event[i] = 1;
-            else
-                key_event[i] = 0;
+            // else
+            //     key_event[i] = 0;
             key_cnt[i]++;
         }
     }
@@ -64,7 +65,12 @@ void key_handler()
 
 uint8_t key_read(key_enum_t k)
 {
-    return key_event[k];
+    uint8_t res = key_event[k];
+    if (res)
+    {
+        key_event[k] = 0;
+    }
+    return res;
 }
 
 void tca9539_led_apply()

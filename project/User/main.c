@@ -26,6 +26,7 @@ int main(void)
 
     drv8701_init();
     drv8701_enable();
+    tft180_init();
     // gpio_init(F1, GPO, GPIO_HIGH, GPO_PP);
     // gpio_init(F2, GPO, GPIO_HIGH, GPO_PP);
     // gpio_init(F3, GPO, GPIO_HIGH, GPO_PP);
@@ -34,7 +35,7 @@ int main(void)
     // timer_loop_init(timer_0, 1000000);
     // timer_loop_init(timer_1, 2000000);
     // timer_loop_init(timer_2, 4000000);
-    timer_loop_init(timer_3, 100000);
+    timer_loop_init(timer_3, 10000);
 
     int t = 0;
     int32_t s1, s2, s3;
@@ -46,9 +47,11 @@ int main(void)
     encoder_init(encoder_1, 4096 * 4 - 1, encoder_dir_BA);
     encoder_set_period(encoder_0, 20);
     encoder_set_period(encoder_1, 20);
+    ui_init();
     // gpio_init(E5,GPO,GPIO_HIGH,GPO_PP);
     while (1)
     {
+        ui_handler();
         systick_delay_ms(20);
         lt++;
         lt = lt % 512;
@@ -85,7 +88,7 @@ int main(void)
         // systick_delay_ms(2);
         //  UARTprintf("%d\n",s1);
 
-        UARTprintf("%d,%d,%d,%d\n", encoder_read_speed(encoder_0), encoder_read_speed(encoder_1),drv_8701_ins.leftSpeed,drv_8701_ins.rightSpeed);
+        //UARTprintf("%d,%d,%d,%d\n", encoder_read_speed(encoder_0), encoder_read_speed(encoder_1),drv_8701_ins.leftSpeed,drv_8701_ins.rightSpeed);
     }
     return 0;
 }
