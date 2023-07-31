@@ -26,9 +26,9 @@ int main(void)
 
     drv8701_init();
     // drv8701_enable();
-    // motor_init();
-    //tft180_init();
-    // infrared_init();
+    motor_init();
+    tft180_init();
+    infrared_init();
 
     // gpio_init(F1, GPO, GPIO_HIGH, GPO_PP);
     // gpio_init(F2, GPO, GPIO_HIGH, GPO_PP);
@@ -51,17 +51,17 @@ int main(void)
     // encoder_init(encoder_1, 4096 * 4 - 1, encoder_dir_BA);
     // encoder_set_period(encoder_0, 20);
     // encoder_set_period(encoder_1, 20);
-    //ui_init();
+    ui_init();
     drv8701_enable();
     // gpio_init(E5,GPO,GPIO_HIGH,GPO_PP);
     while (1)
     {
 
-        // infrared_read();
-        // float err = CalcPosiPidOut(&steering, 0, infrared_err_moment1());
-        // motor_set_speed(motor.speed_center - err, motor.speed_center + err);
+        infrared_read();
+        float err = CalcPosiPidOut(&steering, 0, infrared_err_moment_exp());
+        motor_set_speed(motor.speed_center * (1 - err / 250.0), motor.speed_center * (1 + err / 250.0));
 
-        // ui_handler();
+        ui_handler();
 
         systick_delay_ms(20);
         lt++;
@@ -72,7 +72,7 @@ int main(void)
         tca9539_led_apply();
         // uart_write_byte(UART_0,'C');
         //  buf[0] = i2c_read_reg(I2C_1, 0x74, 0x00);
-
+        UARTprintf("%d,%d\n", motor.speed[0], motor.speed[1]);
         t += 1;
         if (t >= 100)
             t = 0;
@@ -87,8 +87,8 @@ int main(void)
 
         // s1 = pow(1.1, f1 * 30) / pow(1.1, 30) * 10000.0;
         // s2 = pow(1.3, f2 * 30) / pow(1.3, 30) * 10000.0;
-        drv8701_setSpeed(0, 0);
-        drv8701_apply();
+        // drv8701_setSpeed(0, 0);
+        // drv8701_apply();
         // gpio_toggle_level(F1);
         //  pwm_set_duty(pwm_motor4, prd);
         //  pwm_set_duty(pwm_servo1, prd);

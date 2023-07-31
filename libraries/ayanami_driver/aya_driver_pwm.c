@@ -43,7 +43,7 @@ void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty)
         SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
         GPIOPinConfigure(GPIO_PF1_M1PWM5);
         GPIOPinTypePWM(GPIO_PORTF_BASE, GPIO_PIN_1);
-        PWMGenConfigure(PWM1_BASE, PWM_GEN_2, PWM_GEN_MODE_DOWN|PWM_GEN_MODE_NO_SYNC);
+        PWMGenConfigure(PWM1_BASE, PWM_GEN_2, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
         PWMGenPeriodSet(PWM1_BASE, PWM_GEN_2, pwmPeriod);
         PWMPulseWidthSet(PWM1_BASE, PWM_OUT_5, dutyCycle);
         PWMOutputState(PWM1_BASE, PWM_OUT_5_BIT, true);
@@ -53,7 +53,7 @@ void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty)
         SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
         GPIOPinConfigure(GPIO_PF2_M1PWM6);
         GPIOPinTypePWM(GPIO_PORTF_BASE, GPIO_PIN_2);
-        PWMGenConfigure(PWM1_BASE, PWM_GEN_3, PWM_GEN_MODE_DOWN|PWM_GEN_MODE_NO_SYNC);
+        PWMGenConfigure(PWM1_BASE, PWM_GEN_3, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
         PWMGenPeriodSet(PWM1_BASE, PWM_GEN_3, pwmPeriod);
         PWMPulseWidthSet(PWM1_BASE, PWM_OUT_6, dutyCycle);
         PWMOutputState(PWM1_BASE, PWM_OUT_6_BIT, true);
@@ -63,7 +63,7 @@ void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty)
         SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
         GPIOPinConfigure(GPIO_PF3_M1PWM7);
         GPIOPinTypePWM(GPIO_PORTF_BASE, GPIO_PIN_3);
-        PWMGenConfigure(PWM1_BASE, PWM_GEN_3, PWM_GEN_MODE_DOWN|PWM_GEN_MODE_NO_SYNC);
+        PWMGenConfigure(PWM1_BASE, PWM_GEN_3, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
         PWMGenPeriodSet(PWM1_BASE, PWM_GEN_3, pwmPeriod);
         PWMPulseWidthSet(PWM1_BASE, PWM_OUT_7, dutyCycle);
         PWMOutputState(PWM1_BASE, PWM_OUT_7_BIT, true);
@@ -73,7 +73,7 @@ void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty)
         SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
         GPIOPinConfigure(GPIO_PD0_M1PWM0);
         GPIOPinTypePWM(GPIO_PORTD_BASE, GPIO_PIN_0);
-        PWMGenConfigure(PWM1_BASE, PWM_GEN_0, PWM_GEN_MODE_DOWN|PWM_GEN_MODE_NO_SYNC);
+        PWMGenConfigure(PWM1_BASE, PWM_GEN_0, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
         PWMGenPeriodSet(PWM1_BASE, PWM_GEN_0, pwmPeriod);
         PWMPulseWidthSet(PWM1_BASE, PWM_OUT_0, dutyCycle);
         PWMOutputState(PWM1_BASE, PWM_OUT_0_BIT, true);
@@ -83,7 +83,7 @@ void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty)
         SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
         GPIOPinConfigure(GPIO_PD1_M1PWM1);
         GPIOPinTypePWM(GPIO_PORTD_BASE, GPIO_PIN_1);
-        PWMGenConfigure(PWM1_BASE, PWM_GEN_0, PWM_GEN_MODE_DOWN|PWM_GEN_MODE_NO_SYNC);
+        PWMGenConfigure(PWM1_BASE, PWM_GEN_0, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
         PWMGenPeriodSet(PWM1_BASE, PWM_GEN_0, pwmPeriod);
         PWMPulseWidthSet(PWM1_BASE, PWM_OUT_1, dutyCycle);
         PWMOutputState(PWM1_BASE, PWM_OUT_1_BIT, true);
@@ -93,7 +93,7 @@ void pwm_init(pwm_ch_t ch, uint32_t freq, uint32_t duty)
         SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
         GPIOPinConfigure(GPIO_PE4_M1PWM2);
         GPIOPinTypePWM(GPIO_PORTE_BASE, GPIO_PIN_4);
-        PWMGenConfigure(PWM1_BASE, PWM_GEN_1, PWM_GEN_MODE_DOWN|PWM_GEN_MODE_NO_SYNC);
+        PWMGenConfigure(PWM1_BASE, PWM_GEN_1, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
         PWMGenPeriodSet(PWM1_BASE, PWM_GEN_1, pwmPeriod);
         PWMPulseWidthSet(PWM1_BASE, PWM_OUT_2, dutyCycle);
         PWMOutputState(PWM1_BASE, PWM_OUT_2_BIT, true);

@@ -33,6 +33,7 @@
         "aya_driver_uart.h": "c",
         "string": "c",
         "aya_behav_motor.h": "c",
-        "aya_common_ui.h": "c"
+        "aya_common_ui.h": "c",
+        "aya_common_ringbuf.h": "c"
     }
 }

@@ -27,8 +27,8 @@ void Timer2IntHandler(void)
     // motor.pid_right_wheel.ki = motor.pid_left_wheel.ki;
     // motor.pid_right_wheel.kd = motor.pid_left_wheel.kd;
     // motor.speed_exp[1]=motor.speed_exp[0];
-	
-    //motor_control();
+
+    motor_control();
 }
 
 void Timer3IntHandler(void)

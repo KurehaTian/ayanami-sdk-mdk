@@ -23,8 +23,8 @@ infoline_t ui_database[] =
         //{"i", &motor.pid_left_wheel.ki, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.1},
         //{"d", &motor.pid_left_wheel.kd, INFOLINE_FLOAT, INFOLINE_EDITABLE, 1},
         {"p", &steering.kp, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.02},
-        {"i", &steering.ki, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.1},
-        {"d", &steering.kd, INFOLINE_FLOAT, INFOLINE_EDITABLE, 1},
+        {"i", &steering.ki, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.01},
+        {"d", &steering.kd, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.01},
 
 };
 
@@ -125,6 +125,11 @@ static void ui_input_respond()
         ui_value_sub();
     if (key_read(KEY_RIGHT))
         ui_value_add();
+    if (key_read(KEY_SW1))
+    {
+        UI.en = 1 - UI.en;
+        tft180_clear();
+    }
     // if (key_poll_C())
 }
 
@@ -201,5 +206,6 @@ void ui_init()
 void ui_handler()
 {
     ui_input_respond();
-    ui_shader();
+    if (UI.en)
+        ui_shader();
 }

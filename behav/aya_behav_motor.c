@@ -1,8 +1,9 @@
 #include "aya_behav_motor.h"
 
-motor_t motor=
-{
-    .speed_center=250,
+
+motor_t motor =
+    {
+        .speed_center = 250,
 };
 
 #define _LIMIT(a, b, c) (a < b) ? (b) : ((a > c) ? (c) : (a))
@@ -16,16 +17,16 @@ void motor_init()
     encoder_set_period(encoder_0, 5);
     encoder_set_period(encoder_1, 5);
 
-    SetInrcPidParm(&motor.pid_left_wheel, 6.0, 0.7, 1.0);
+    SetInrcPidParm(&motor.pid_left_wheel, 4, 1.0, 1.0);
     motor.pid_left_wheel.limit_out_abs = 9999;
     motor.pid_left_wheel.limit_integral_abs = 2000;
 
-    SetInrcPidParm(&motor.pid_right_wheel, 6.0, 0.7, 1.0);
+    SetInrcPidParm(&motor.pid_right_wheel, 4, 1.0, 1.0);
     motor.pid_right_wheel.limit_out_abs = 9999;
     motor.pid_right_wheel.limit_integral_abs = 2000;
 
-    SetPosiPidParm(&steering,1.2,0,0.1);
-    steering.limit_out_abs=500;
+    SetPosiPidParm(&steering, 1.2, 0, 0.1);
+    steering.limit_out_abs = 9999;
 }
 
 void motor_control()

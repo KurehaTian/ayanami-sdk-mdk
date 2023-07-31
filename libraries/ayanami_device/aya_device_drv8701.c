@@ -37,10 +37,10 @@ void drv8701_apply(void)
     else
         sig_r = 0, spd_r = drv_8701_ins.rightSpeed;
 
-    // if (spd_l <= 100)
-    //     spd_l = 100;
-    // if (spd_r <= 100)
-    //     spd_r = 100;
+    if (spd_l <= 100)
+        spd_l = 100;
+    if (spd_r <= 100)
+        spd_r = 100;
     pwm_set_duty(DRV8701_LEFT_PWM, spd_l);
     pwm_set_duty(DRV8701_RIGHT_PWM, spd_r);
 

@@ -39,17 +39,15 @@ typedef struct
         ls_line;      // 当前页面中最大的行
 } UIstatus_t;
 
-
 typedef struct
 {
     int max_line_number;
     int page_volume;
-    int font_height;  // 字高(px)
+    int font_height; // 字高(px)
+    uint8_t en;
 } ui_instance_t;
-
 
 void ui_init();
 void ui_handler();
-
 
 #endif

@@ -37,5 +37,6 @@
 #include "aya_behav_motor.h"
 #include "aya_common_font.h"
 #include "aya_common_UI.h"
+#include "aya_common_ringbuf.h"
 
 #endif
