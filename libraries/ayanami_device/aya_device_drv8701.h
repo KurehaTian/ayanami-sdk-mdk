@@ -9,6 +9,7 @@ typedef struct
     uint8_t leftReverse, rightReverse;
     int32_t leftSpeed, rightSpeed;
 } drv8701_t;
+extern drv8701_t drv_8701_ins;
 
 #define DRV8701_LEFT_PWM pwm_motor2
 #define DRV8701_RIGHT_PWM pwm_motor4

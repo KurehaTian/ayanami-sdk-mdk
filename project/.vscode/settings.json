@@ -31,6 +31,7 @@
         "aya_device_drv8701.h": "c",
         "aya_common_pid.h": "c",
         "aya_driver_uart.h": "c",
-        "string": "c"
+        "string": "c",
+        "aya_behav_motor.h": "c"
     }
 }

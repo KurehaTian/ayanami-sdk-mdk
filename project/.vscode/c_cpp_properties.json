@@ -10,6 +10,8 @@
                 "c:\\nuedc\\ayanami-sdk-mdk\\libraries\\ayanami_common",
                 "c:\\nuedc\\ayanami-sdk-mdk\\project\\User",
                 "c:\\nuedc\\ayanami-sdk-mdk\\libraries\\bsxlite",
+                "c:\\nuedc\\ayanami-sdk-mdk\\app",
+                "c:\\nuedc\\ayanami-sdk-mdk\\behav",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
                 "c:\\nuedc\\ayanami-sdk-mdk\\libraries\\tiva\\startup",

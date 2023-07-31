@@ -22,8 +22,10 @@ int main(void)
     FPUEnable();
     FPULazyStackingEnable();
 
-    // ConfigureUART();
+    ConfigureUART();
 
+    drv8701_init();
+    drv8701_enable();
     // gpio_init(F1, GPO, GPIO_HIGH, GPO_PP);
     // gpio_init(F2, GPO, GPIO_HIGH, GPO_PP);
     // gpio_init(F3, GPO, GPIO_HIGH, GPO_PP);
@@ -33,43 +35,46 @@ int main(void)
     // timer_loop_init(timer_1, 2000000);
     // timer_loop_init(timer_2, 4000000);
     timer_loop_init(timer_3, 100000);
-    uart_init(UART_6, 115200);
-    // drv8701_init();
-    // drv8701_enable();
+
     int t = 0;
-    uint32_t s1, s2, s3;
+    int32_t s1, s2, s3;
     float f1, f2, f3;
-    //tca9539_init();
+    tca9539_init();
     uint8_t buf[3];
     int lt = 0;
+    encoder_init(encoder_0, 4096 * 4 - 1, encoder_dir_AB);
+    encoder_init(encoder_1, 4096 * 4 - 1, encoder_dir_BA);
+    encoder_set_period(encoder_0, 20);
+    encoder_set_period(encoder_1, 20);
     // gpio_init(E5,GPO,GPIO_HIGH,GPO_PP);
     while (1)
     {
-        systick_delay_ms(100);
+        systick_delay_ms(20);
         lt++;
         lt = lt % 512;
         led_setColor(1, lt / 64);
         led_setColor(2, (lt / 8) % 8);
         led_setColor(3, lt % 8);
-        //tca9539_led_apply();
-        //uart_write_byte(UART_0,'C');
-        // buf[0] = i2c_read_reg(I2C_1, 0x74, 0x00);
+        tca9539_led_apply();
+        // uart_write_byte(UART_0,'C');
+        //  buf[0] = i2c_read_reg(I2C_1, 0x74, 0x00);
 
-        // t += 1;
-        // if (t >= 1000)
-        //     t = 0;
-        // gpio_set_level(E5,GPIO_LOW);
+        t += 1;
+        if (t >= 100)
+            t = 0;
 
-        // f1 = sin((t + 0) / 1000.0 * 2 * 3.1415926);
+        f1 = sin((t + 0) / 100.0 * 2 * 3.1415926);
         // f1 = (f1 + 1) / 2;
-        // f2 = sin((t + 333) / 1000.0 * 2 * 3.1415926);
+        f2 = sin((t + 33.3) / 100.0 * 2 * 3.1415926);
         // f2 = (f2 + 1) / 2;
-        // f3 = sin((t + 667) / 1000.0 * 2 * 3.1415926);
-        // f3 = (f3 + 1) / 2;
 
+        s1 = f1 * 500;
+        s2 = f2 * 500;
+
+        drv8701_setSpeed(s1, s2);
+        drv8701_apply();
         // s1 = pow(1.1, f1 * 30) / pow(1.1, 30) * 10000.0;
         // s2 = pow(1.3, f2 * 30) / pow(1.3, 30) * 10000.0;
-        // s3 = pow(1.3, f3 * 30) / pow(1.3, 30) * 10000.0;
 
         // gpio_toggle_level(F1);
         //  pwm_set_duty(pwm_motor4, prd);
@@ -79,6 +84,8 @@ int main(void)
         // UARTprintf("P0=%x\n", buf[0]);
         // systick_delay_ms(2);
         //  UARTprintf("%d\n",s1);
+
+        UARTprintf("%d,%d,%d,%d\n", encoder_read_speed(encoder_0), encoder_read_speed(encoder_1),drv_8701_ins.leftSpeed,drv_8701_ins.rightSpeed);
     }
     return 0;
 }
