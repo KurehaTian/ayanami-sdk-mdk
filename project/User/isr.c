@@ -17,13 +17,18 @@ void Timer0IntHandler(void)
 void Timer1IntHandler(void)
 {
     MAP_TimerIntClear(TIMER1_BASE, TIMER_TIMA_TIMEOUT);
-   
 }
 
 void Timer2IntHandler(void)
 {
     MAP_TimerIntClear(TIMER2_BASE, TIMER_TIMA_TIMEOUT);
 
+    // motor.pid_right_wheel.kp = motor.pid_left_wheel.kp;
+    // motor.pid_right_wheel.ki = motor.pid_left_wheel.ki;
+    // motor.pid_right_wheel.kd = motor.pid_left_wheel.kd;
+    // motor.speed_exp[1]=motor.speed_exp[0];
+	
+    //motor_control();
 }
 
 void Timer3IntHandler(void)

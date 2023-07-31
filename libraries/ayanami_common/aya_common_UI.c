@@ -15,20 +15,16 @@ infoline_t ui_database[] =
          *       是否允许编辑：  INFOLINE_EDITABLE-可编辑    INFOLINE_UNEDITABLE-不可编辑，仅显示
          *       编辑步长：      每次左右拨动五向开关数值的变动步长
          */
-        //  {"ECD1", &Encoder.encoder1, INFOLINE_INT, INFOLINE_UNEDITABLE},
-        //  {"ECD2", &Encoder.encoder2, INFOLINE_INT, INFOLINE_UNEDITABLE},
-        //  {"ECD3", &Encoder.encoder3, INFOLINE_INT, INFOLINE_UNEDITABLE},
-        //  {"ECD4", &Encoder.encoder4, INFOLINE_INT, INFOLINE_UNEDITABLE},
 
-        //{"ACCX", &BMI.acc_X, INFOLINE_FLOAT, INFOLINE_UNEDITABLE},
-        //{"ACCY", &BMI.acc_Y, INFOLINE_FLOAT, INFOLINE_UNEDITABLE},
-        //{"ACCZ", &BMI.acc_Z, INFOLINE_FLOAT, INFOLINE_UNEDITABLE},
-        //{"YAW", &BMI.yaw, INFOLINE_FLOAT, INFOLINE_UNEDITABLE},
-
-        {"a", &a, INFOLINE_INT, INFOLINE_EDITABLE, 1},
-        {"b", &b, INFOLINE_INT, INFOLINE_EDITABLE, 2},
-        {"c", &c, INFOLINE_INT, INFOLINE_EDITABLE, 3},
-        {"d", &d, INFOLINE_INT, INFOLINE_EDITABLE, 4},
+        {"speed", &motor.speed_center, INFOLINE_INT, INFOLINE_EDITABLE, 10},
+        //{"EN", &drv_8701_ins.idle, INFOLINE_INT, INFOLINE_EDITABLE, 1},
+        //{"speed_R", &motor.speed_exp[1], INFOLINE_INT, INFOLINE_EDITABLE, 10},
+        //{"p", &motor.pid_left_wheel.kp, INFOLINE_FLOAT, INFOLINE_EDITABLE, 1},
+        //{"i", &motor.pid_left_wheel.ki, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.1},
+        //{"d", &motor.pid_left_wheel.kd, INFOLINE_FLOAT, INFOLINE_EDITABLE, 1},
+        {"p", &steering.kp, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.02},
+        {"i", &steering.ki, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.1},
+        {"d", &steering.kd, INFOLINE_FLOAT, INFOLINE_EDITABLE, 1},
 
 };
 
@@ -160,7 +156,10 @@ static void ui_shader()
             if (ui_database[ui_status.ls_line + i - 1].type == INFOLINE_INT)
                 tft180_show_int_color(88, i * UI.font_height, *(int *)ui_database[ui_status.ls_line + i - 1].num, 8, tft180_bgcolor, tft180_pencolor);
             if (ui_database[ui_status.ls_line + i - 1].type == INFOLINE_FLOAT)
+            {
+                tft180_show_string_color(88, i * UI.font_height, "            ", tft180_bgcolor, tft180_pencolor);
                 tft180_show_float_color(88, i * UI.font_height, *(float *)ui_database[ui_status.ls_line + i - 1].num, 8, 2, tft180_bgcolor, tft180_pencolor);
+            }
         }
         // 该行未被选中
         else
@@ -170,7 +169,10 @@ static void ui_shader()
             if (ui_database[ui_status.ls_line + i - 1].type == INFOLINE_INT)
                 tft180_show_int_color(88, i * UI.font_height, *(int *)ui_database[ui_status.ls_line + i - 1].num, 8, tft180_pencolor, tft180_bgcolor);
             if (ui_database[ui_status.ls_line + i - 1].type == INFOLINE_FLOAT)
+            {
+                tft180_show_string_color(88, i * UI.font_height, "            ", tft180_pencolor, tft180_bgcolor);
                 tft180_show_float_color(88, i * UI.font_height, *(float *)ui_database[ui_status.ls_line + i - 1].num, 8, 2, tft180_pencolor, tft180_bgcolor);
+            }
         }
     }
 }

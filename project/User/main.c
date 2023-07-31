@@ -25,8 +25,11 @@ int main(void)
     ConfigureUART();
 
     drv8701_init();
-    drv8701_enable();
-    tft180_init();
+    // drv8701_enable();
+    // motor_init();
+    //tft180_init();
+    // infrared_init();
+
     // gpio_init(F1, GPO, GPIO_HIGH, GPO_PP);
     // gpio_init(F2, GPO, GPIO_HIGH, GPO_PP);
     // gpio_init(F3, GPO, GPIO_HIGH, GPO_PP);
@@ -34,7 +37,7 @@ int main(void)
     // infrared_init();
     // timer_loop_init(timer_0, 1000000);
     // timer_loop_init(timer_1, 2000000);
-    // timer_loop_init(timer_2, 4000000);
+    timer_loop_init(timer_2, 5000);
     timer_loop_init(timer_3, 10000);
 
     int t = 0;
@@ -43,15 +46,23 @@ int main(void)
     tca9539_init();
     uint8_t buf[3];
     int lt = 0;
-    encoder_init(encoder_0, 4096 * 4 - 1, encoder_dir_AB);
-    encoder_init(encoder_1, 4096 * 4 - 1, encoder_dir_BA);
-    encoder_set_period(encoder_0, 20);
-    encoder_set_period(encoder_1, 20);
-    ui_init();
+
+    // encoder_init(encoder_0, 4096 * 4 - 1, encoder_dir_AB);
+    // encoder_init(encoder_1, 4096 * 4 - 1, encoder_dir_BA);
+    // encoder_set_period(encoder_0, 20);
+    // encoder_set_period(encoder_1, 20);
+    //ui_init();
+    drv8701_enable();
     // gpio_init(E5,GPO,GPIO_HIGH,GPO_PP);
     while (1)
     {
-        ui_handler();
+
+        // infrared_read();
+        // float err = CalcPosiPidOut(&steering, 0, infrared_err_moment1());
+        // motor_set_speed(motor.speed_center - err, motor.speed_center + err);
+
+        // ui_handler();
+
         systick_delay_ms(20);
         lt++;
         lt = lt % 512;
@@ -74,11 +85,10 @@ int main(void)
         s1 = f1 * 500;
         s2 = f2 * 500;
 
-        drv8701_setSpeed(s1, s2);
-        drv8701_apply();
         // s1 = pow(1.1, f1 * 30) / pow(1.1, 30) * 10000.0;
         // s2 = pow(1.3, f2 * 30) / pow(1.3, 30) * 10000.0;
-
+        drv8701_setSpeed(0, 0);
+        drv8701_apply();
         // gpio_toggle_level(F1);
         //  pwm_set_duty(pwm_motor4, prd);
         //  pwm_set_duty(pwm_servo1, prd);
@@ -88,7 +98,7 @@ int main(void)
         // systick_delay_ms(2);
         //  UARTprintf("%d\n",s1);
 
-        //UARTprintf("%d,%d,%d,%d\n", encoder_read_speed(encoder_0), encoder_read_speed(encoder_1),drv_8701_ins.leftSpeed,drv_8701_ins.rightSpeed);
+        // UARTprintf("%d,%d,%d,%d\n", encoder_read_speed(encoder_0), encoder_read_speed(encoder_1),drv_8701_ins.leftSpeed,drv_8701_ins.rightSpeed);
     }
     return 0;
 }

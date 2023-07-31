@@ -11,6 +11,7 @@
 #include "string.h"
 #include "stdlib.h"
 #include "stdio.h"
+#include "aya_common_pid.h"
 
 #include "utils/uartstdio.h"
 
@@ -33,8 +34,8 @@
 #include "aya_device_drv8701.h"
 #include "aya_device_key.h"
 
+#include "aya_behav_motor.h"
 #include "aya_common_font.h"
-#include "aya_common_pid.h"
 #include "aya_common_UI.h"
 
 #endif

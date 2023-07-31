@@ -10,8 +10,8 @@ drv8701_t drv_8701_ins =
 
 void drv8701_init(void)
 {
-    pwm_init(DRV8701_LEFT_PWM, 10000, 0);
-    pwm_init(DRV8701_RIGHT_PWM, 10000, 0);
+    pwm_init(DRV8701_LEFT_PWM, 10000, 100);
+    pwm_init(DRV8701_RIGHT_PWM, 10000, 100);
     gpio_init(DRV8701_LEFT_PH, GPO, GPIO_LOW, GPO_PP);
     gpio_init(DRV8701_RIGHT_PH, GPO, GPIO_LOW, GPO_PP);
 }
@@ -23,8 +23,8 @@ void drv8701_apply(void)
 
     if (drv_8701_ins.idle == 0)
     {
-        pwm_set_duty(DRV8701_LEFT_PWM, 1);
-        pwm_set_duty(DRV8701_RIGHT_PWM, 1);
+        pwm_set_duty(DRV8701_LEFT_PWM, 100);
+        pwm_set_duty(DRV8701_RIGHT_PWM, 100);
         return;
     }
 
@@ -37,10 +37,10 @@ void drv8701_apply(void)
     else
         sig_r = 0, spd_r = drv_8701_ins.rightSpeed;
 
-    if (spd_l <= 100)
-        spd_l = 100;
-    if (spd_r <= 100)
-        spd_r = 100;
+    // if (spd_l <= 100)
+    //     spd_l = 100;
+    // if (spd_r <= 100)
+    //     spd_r = 100;
     pwm_set_duty(DRV8701_LEFT_PWM, spd_l);
     pwm_set_duty(DRV8701_RIGHT_PWM, spd_r);
 

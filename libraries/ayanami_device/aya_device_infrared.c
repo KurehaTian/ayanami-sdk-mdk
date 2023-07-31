@@ -27,9 +27,9 @@ void infrared_read()
 {
     // 重新锁存数据
     gpio_set_level(INFRARED_PIN_SH, GPIO_LOW);
-    delay_us(10);
+    delay_us(2);
     gpio_set_level(INFRARED_PIN_SH, GPIO_HIGH);
-    delay_us(10);
+    delay_us(2);
 
     UARTprintf("\n\n");
     // 开始读入数据
@@ -37,9 +37,9 @@ void infrared_read()
     {
         gpio_set_level(INFRARED_PIN_CLK, GPIO_LOW);
         raw_buff[i] = gpio_get_level(INFRARED_PIN_DATA);
-        delay_us(10);
+        delay_us(2);
         gpio_set_level(INFRARED_PIN_CLK, GPIO_HIGH);
-        delay_us(10);
+        delay_us(2);
         //UARTprintf("%d ", raw_buff[i]);
     }
     //UARTprintf("\n");

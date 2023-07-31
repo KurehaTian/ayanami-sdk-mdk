@@ -50,7 +50,7 @@ void key_handler()
         {
 // 按键按下时
 #ifdef KEY_LONG_PRESS
-            UARTprintf("Key %d pressed,Eve= %d,Cnt=%d\n", i, key_event[i], key_cnt[i]);
+            //UARTprintf("Key %d pressed,Eve= %d,Cnt=%d\n", i, key_event[i], key_cnt[i]);
             if (key_cnt[i] == 1 || key_cnt[i] > KEY_LONG_PRESS)
 #else
             if (key_cnt[i] == 1)
