@@ -21,11 +21,11 @@ typedef struct
     // bsx liteÏà¹Ø
 
     int32_t time_stamp_us;
-		int32_t us_count;
-		uint8_t en;
+    int32_t us_count;
+    uint8_t en;
+    float yaw, roll, pitch;
 
 } bmi088_data_t;
-
 
 extern bmi088_data_t bmi088_data;
 

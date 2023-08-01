@@ -20,12 +20,12 @@ float delta_angle(float current, float target)
 
 static void delay_ms(int ms)
 {
-     systick_delay_ms(ms);
+    systick_delay_ms(ms);
 }
 
 static void delay_us(int us)
 {
-   systick_delay_us(us);
+    systick_delay_us(us);
 }
 
 static uint8_t bmi088_acc_read_reg(uint8_t reg)
@@ -195,11 +195,14 @@ void bmi088_read_data()
 void bmi088_bsx_calc()
 {
     bmi088_data.time_stamp_us += 10000;
-    bsx_input_acc.x = bmi088_data.acc_x;
-    bsx_input_acc.y = bmi088_data.acc_y;
-    bsx_input_acc.z = bmi088_data.acc_z;
-    bsx_input_gyo.x = bmi088_data.gyro_x;
-    bsx_input_gyo.y = bmi088_data.gyro_y;
-    bsx_input_gyo.z = bmi088_data.gyro_z;
+    bsx_input_acc.x = bmi088_data.acc_y;
+    bsx_input_acc.y = bmi088_data.acc_x;
+    bsx_input_acc.z = -bmi088_data.acc_z;
+    bsx_input_gyo.x = bmi088_data.gyro_y;
+    bsx_input_gyo.y = bmi088_data.gyro_x;
+    bsx_input_gyo.z = -bmi088_data.gyro_z;
     bsxlite_do_step(&bmi088_ins, bmi088_data.time_stamp_us, &bsx_input_acc, &bsx_input_gyo, &bsx_out_data);
+    bmi088_data.yaw = bsx_out_data.orientation.yaw * 180.0 / 3.1415926;
+    bmi088_data.pitch = bsx_out_data.orientation.pitch * 180.0 / 3.1415926;
+    bmi088_data.roll = bsx_out_data.orientation.roll * 180.0 / 3.1415926;
 }

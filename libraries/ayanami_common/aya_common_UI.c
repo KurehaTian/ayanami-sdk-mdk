@@ -25,7 +25,9 @@ infoline_t ui_database[] =
         {"p", &steering.kp, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.02},
         {"i", &steering.ki, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.01},
         {"d", &steering.kd, INFOLINE_FLOAT, INFOLINE_EDITABLE, 0.01},
-
+        {"YAW", &bmi088_data.yaw, INFOLINE_FLOAT, INFOLINE_UNEDITABLE},
+        {"ROL", &bmi088_data.roll, INFOLINE_FLOAT, INFOLINE_UNEDITABLE},
+        {"PIT", &bmi088_data.pitch, INFOLINE_FLOAT, INFOLINE_UNEDITABLE},
 };
 
 UIstatus_t ui_status =
@@ -162,7 +164,7 @@ static void ui_shader()
                 tft180_show_int_color(88, i * UI.font_height, *(int *)ui_database[ui_status.ls_line + i - 1].num, 8, tft180_bgcolor, tft180_pencolor);
             if (ui_database[ui_status.ls_line + i - 1].type == INFOLINE_FLOAT)
             {
-                tft180_show_string_color(88, i * UI.font_height, "            ", tft180_bgcolor, tft180_pencolor);
+                // tft180_show_string_color(88, i * UI.font_height, "            ", tft180_bgcolor, tft180_pencolor);
                 tft180_show_float_color(88, i * UI.font_height, *(float *)ui_database[ui_status.ls_line + i - 1].num, 8, 2, tft180_bgcolor, tft180_pencolor);
             }
         }
@@ -175,7 +177,7 @@ static void ui_shader()
                 tft180_show_int_color(88, i * UI.font_height, *(int *)ui_database[ui_status.ls_line + i - 1].num, 8, tft180_pencolor, tft180_bgcolor);
             if (ui_database[ui_status.ls_line + i - 1].type == INFOLINE_FLOAT)
             {
-                tft180_show_string_color(88, i * UI.font_height, "            ", tft180_pencolor, tft180_bgcolor);
+                // tft180_show_string_color(88, i * UI.font_height, "            ", tft180_pencolor, tft180_bgcolor);
                 tft180_show_float_color(88, i * UI.font_height, *(float *)ui_database[ui_status.ls_line + i - 1].num, 8, 2, tft180_pencolor, tft180_bgcolor);
             }
         }

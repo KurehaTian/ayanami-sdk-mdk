@@ -22,9 +22,9 @@
 #define TFT180_CS(x) ((x) ? (gpio_set_level(TFT180_CS_PIN, GPIO_HIGH)) : (gpio_set_level(TFT180_CS_PIN, GPIO_LOW)))
 #define TFT180_BLK(x) ((x) ? (gpio_set_level(TFT180_BL_PIN, GPIO_HIGH)) : (gpio_set_level(TFT180_BL_PIN, GPIO_LOW)))
 
-#define abs(x) (x >= 0) ? (x) : (-x)
-#define _max(a, b) (a > b) ? (a) : (b)
-#define _min(a, b) (a < b) ? (a) : (b)
+#define abs(x) ((x >= 0) ? (x) : (-x))
+#define _max(a, b) ((a > b) ? (a) : (b))
+#define _min(a, b) ((a < b) ? (a) : (b))
 
 typedef enum
 {

@@ -33,7 +33,7 @@ int main(void)
     // gpio_init(F1, GPO, GPIO_HIGH, GPO_PP);
     // gpio_init(F2, GPO, GPIO_HIGH, GPO_PP);
     // gpio_init(F3, GPO, GPIO_HIGH, GPO_PP);
-    // bmi088_init();
+    bmi088_init();
     // infrared_init();
     // timer_loop_init(timer_0, 1000000);
     // timer_loop_init(timer_1, 2000000);
